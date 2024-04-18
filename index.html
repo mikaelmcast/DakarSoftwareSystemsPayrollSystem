@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dakar Payroll System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/AppIcon/dakarIcon.ico" type="image/x-icon">
+</head>
+<body class="loginbody">
+  <div class="logincontainer">
+    <h1 style="text-align: center; color: #152C40; padding-top:45px">Dakar Payroll Login</h1>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Company Username">
+      <br>
+      <div id="usernameError" class="error-message"></div>
+      <input type="password" id="password" placeholder="Password">
+      <br>
+      <div id="passwordError" class="error-message"></div>
+      <button class="buttonLgn" type="submit">Login</button>
+    </form>
+  </div>
+  
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script>
+    function validateForm() {
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      var usernameError = document.getElementById("usernameError");
+      var passwordError = document.getElementById("passwordError");
+      var isValid = true;
+
+      usernameError.innerHTML = ""; 
+      passwordError.innerHTML = ""; 
+
+      if (username.trim() === "") {
+        usernameError.innerHTML = "Company username must not be left empty";
+        isValid = false;
+      }
+
+      if (password.length < 4) {
+        passwordError.innerHTML = "Password must be at least 4 characters long";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", function(event) {
+      event.preventDefault(); 
+      
+      if (validateForm()) {
+        document.getElementById("loadingOverlay").style.display = "flex";
+
+      setTimeout(function() {
+        var username = document.getElementById("username").value;
+        window.location.href = "portal.html?username=" + encodeURIComponent(username); 
+      }, 2000); 
+
+      }
+    });
+  </script>
+</body>
+</html>

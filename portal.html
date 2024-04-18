@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dakar Payroll System</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/AppIcon/dakarIcon.ico" type="image/x-icon">
+</head>
+<body class="portalbody">
+  <div>
+    <h3 class="welcome">Welcome</h3>
+  </div>
+  <div>
+    <button class="btn btn-danger btn-logout" onclick="logout()">Logout</button>
+  </div>
+  <div class="container slide-in">
+    <div class="row">
+      <div class="form-container col-md-6">
+        <h2 class="title">Criteria Selection</h2>
+        <br><br>
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#criteria-selection">Criteria Selection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#field-selection">Field Selection</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#additional-field-selection">Additional Field Selection</a>
+          </li>
+        </ul>
+
+<div class="tab-content">
+  <div class="tab-pane fade show active" id="criteria-selection">
+    <div class="form-group">
+      <label for="company">Company:</label>
+      <input type="text" class="form-control" placeholder="Company Name" id="company">
+    </div>
+    <div class="form-group">
+      <label for="pay-group">Pay Group:</label>
+      <select class="form-control" id="pay-group">
+        <option value="yearly">Yearly</option>
+        <option value="monthly">Monthly</option>
+        <option value="weekly">Weekly</option>
+        <option value="bi-weekly">Bi-Weekly</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="payroll-number-from">Payroll Number (From):</label>
+        <select class="form-control" id="payroll-number-from">
+          <option value="sprn">Select Payroll</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="payroll-number-to">Payroll Number (To):</label>
+        <select class="form-control" id="payroll-number-to">
+          <option value="sprn">Select Payroll</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="export-location">Export File Location:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="export-location" placeholder="Choose download location...">
+        <div class="input-group-append">
+          <button class="btn" type="button" onclick="chooseDownloadLocation()">Browse</button>
+        </div>
+      </div>
+    </div>
+    <div class="form-check">
+      <label class="form-check-label" id="gc" for="gc">Grouping Collection:</label>
+      <br>
+      <input class="form-check-input" type="radio" id="option1" name="options" value="option1">
+      <label class="form-check-label" for="option1">From Employee</label>
+      &nbsp; &nbsp; &nbsp; &nbsp;
+      <input class="form-check-input" type="radio" id="option2" name="options" value="option2">
+      <label class="form-check-label" for="option2">From Pay Details</label>
+    </div>
+    <button onclick="generateReport()">Generate Report</button>
+    <button onclick="nextTab()">Next</button>
+  </div>
+
+
+          <div class="tab-pane fade" id="field-selection">
+            <div class="form-group checkbox-grid">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="basic-pay-1">
+                <label class="form-check-label" for="basic-pay-1">Basic Pay (Each Pay)</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="basic-pay-2">
+                <label class="form-check-label" for="basic-pay-2">Basic Pay (This Pay)</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="basic-pay-3">
+                <label class="form-check-label" for="basic-pay-3">Basic Pay (Inc Absences)</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="taxable-allowances">
+                <label class="form-check-label" for="taxable-allowances">All Taxable Allowances</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="taxable-deductions">
+                <label class="form-check-label" for="taxable-deductions">All Taxable Deductions</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="government-bonuses">
+                <label class="form-check-label" for="government-bonuses">All Government Bonuses</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="extra-hours">
+                <label class="form-check-label" for="extra-hours">All Extra Hours</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="gross-pay">
+                <label class="form-check-label" for="gross-pay">Gross Pay</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="net-pay">
+                <label class="form-check-label" for="net-pay">Net Pay</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="leave-paid">
+                <label class="form-check-label" for="leave-paid">Leave Paid</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="leave-unpaid">
+                <label class="form-check-label" for="leave-unpaid">Leave Unpaid</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="sick-leave">
+                <label class="form-check-label" for="sick-leave">Sick Leave</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="sick-leave">
+                <label class="form-check-label" for="injury-leave">Injury Leave</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="sick-leave">
+                <label class="form-check-label" for="Paternity-leave">Paternity Leave</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="sick-leave">
+                <label class="form-check-label" for="Maternity-leave">Maternity Leave</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="lateness">
+                <label class="form-check-label" for="lateness">Lateness</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="leave-paid-2">
+                <label class="form-check-label" for="leave-paid-2">Public Holidays</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="leave-paid-2">
+                <label class="form-check-label" for="All-Extra-Hours">All Extra Hours</label>
+              </div>
+            </div>
+            <button onclick="prevTab()">Previous</button>
+            <button onclick="updateSelectedFields()">Update</button>
+            <button onclick="selectAllFields()">Select All</button>
+            <button onclick="refreshPage()">Clear All</button>
+          </div>
+          
+
+          <div class="tab-pane fade" id="additional-field-selection">
+            <div class="form-group checkbox-grid">
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="basic-pay-1">
+                <label class="form-check-label" for="basic-pay-1">Overtime 1.5</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="basic-pay-2">
+                <label class="form-check-label" for="basic-pay-2">Overtime 2</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="basic-pay-3">
+                <label class="form-check-label" for="basic-pay-3">Internet Allownace</label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="taxable-allowances">
+                <label class="form-check-label" for="taxable-allowances">Mobile Allowance</label>
+              </div>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+            </div>
+            <button onclick="prevTab()">Previous</button>
+            <button onclick="updateSelectedFields()">Update</button>
+            <button onclick="selectAllFields()">Select All</button>
+            <button onclick="refreshPage()">Clear All</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="list-container col-md-6">
+        <h2 class="title">Selected Fields</h2>
+        <br><br>
+        <ul id="selected-fields" class="list-group"></ul>
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center" id="pagination"></ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script>
+    var selectedFields = [];
+
+    function refreshPage() {
+      location.reload();
+    }
+    
+    function logout() {
+      window.location.href = "index.html";
+    }
+
+    $(document).ready(function() {
+      $('.container').slideDown(1000);
+    });
+
+    function nextTab() {
+      $('.nav-tabs .active').parent().next('li').find('a').trigger('click');
+      updateSelectedFields();
+    }
+
+    function prevTab() {
+      $('.nav-tabs .active').parent().prev('li').find('a').trigger('click');
+      updateSelectedFields();
+    }
+
+    function selectAllFields() {
+      $('.tab-pane.active input[type="checkbox"]').prop('checked', true);
+    }
+    
+    function updateSelectedFields() {
+      var currentFields = [];
+      $('.tab-pane input[type="checkbox"]:checked').each(function() {
+        currentFields.push($(this).next('label').text());
+      });
+    
+      $('#selected-fields').empty();
+      selectedFields = [...new Set([...selectedFields, ...currentFields])];
+      selectedFields.forEach(function(field) {
+        var listItem = $('<li class="list-group-item field-item">' + field + '</li>');
+        var deleteIcon = $('<i class="fas fa-trash-alt"></i>');
+        deleteIcon.click(function() {
+          removeField(field);
+        });
+        listItem.append(deleteIcon);
+        $('#selected-fields').append(listItem);
+      });
+    
+      localStorage.setItem('selectedFields', JSON.stringify(selectedFields));
+    }
+
+    function removeField(field) {
+      selectedFields = selectedFields.filter(function(item) {
+        return item !== field;
+      });
+      updateSelectedFields();
+    }
+
+    function chooseDownloadLocation() {
+      var downloadLocation = prompt("The file will be automatically downloaded in the Downloads folder");
+      if (downloadLocation !== null) {
+        console.log("Ok!");
+      } 
+    }
+    
+    function generateReport() {
+      var selectedFields = [];
+      $('#selected-fields li').each(function() {
+        selectedFields.push($(this).text());
+      });
+    
+      var csvContent = "Selected Fields\n";
+      csvContent += selectedFields.join(",") + "\n";
+    
+      var exportLocation = document.getElementById('export-location').value;
+    
+      var blob = new Blob([csvContent], { type: 'text/csv' });
+    
+      var link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.download = 'Payroll_Report.csv';
+    
+      link.click();
+    }
+
+    $(document).ready(function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var username = urlParams.get('username');
+      $('.welcome').text('Welcome, ' + username);
+    });
+    
+  </script>
+</body>
+</html>
